@@ -8,8 +8,10 @@ PopularVote <- read.csv("popularvote.csv")
 worldbank = read.csv("inflation.csv")
 
 
-#Clean
+#Clean (pv stands for popular vote, I got the data from Vital Statistics on Congress)
 pv = PopularVote[c("Year", "DemPctVotes", "RepPctVotes", "DirectionVotesChange", "DemSeatsAndVotesDifference")]
+colnames(pv)[2] = "DemPercentageVotes"
+colnames(pv)[3] = "RepPercentageVotes"
 pv = pv[pv$Year >= 2000,]
 
 #Clean
