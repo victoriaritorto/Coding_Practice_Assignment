@@ -31,4 +31,21 @@ as.numeric(wb$USInflationRate)
 
 hist(wb$USInflationRate[wb$Year > 2010])
 
+#Merge
+df = merge(pv, wb, by.x = c("Year"), by.y = c("Year"))
+
+#Scatter plot
+plot(df$DemSeatsAndVotesDifference, df$USInflationRate)
+
+#Regression model
+m1 = lm(USInflationRate ~ poly(DemSeatsAndVotesDifference,2), data = df)
+summary(m1)
+
+#Output Regression
+stargazer(m1, type = "html", out = "model.html",
+          covariate.labels = c("DemSeatsAndVotesDifference","DemSeatsAndVotesDifference\\^2", NA),
+          dep.var.labels = c("USInflationRate"),
+          omit.stat = c("ser", "f","adj.rsq"))
+BROWSE("model.html")
+
 
